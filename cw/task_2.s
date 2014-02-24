@@ -11,7 +11,7 @@ main:
 	pushl %ebp
 	movl %esp, %ebp
 
-	pushl $123
+	pushl $321
 	pushl $string_label
 	pushl $format_string
 	call printf
