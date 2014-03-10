@@ -1,0 +1,11 @@
+"movq $0, %rdx\n"
+"addq %rax, %rdx\n"
+"addq %rbx, %rdx\n"
+"addq %rbx, %rdx\n"
+"addq %rbx, %rdx\n"
+"addq %rbx, %rdx\n"
+"addq %rbx, %rdx\n"
+"addq %rbx, %rdx\n"
+"addq %rbx, %rdx\n"
+"addq %rbx, %rdx\n"
+
