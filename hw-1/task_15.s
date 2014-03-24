@@ -3,8 +3,6 @@ int:
         .space 4
 in:
         .string "%d"
-out:
-        .string "%d\n"
 yes:
         .string "yes\n"
 no:
@@ -32,10 +30,8 @@ one:
         call printf
         addl $4, %esp
 finish:
-
-
-
         movl %ebp, %esp
         popl %ebp
+	movl $0, %eax
         ret
 
