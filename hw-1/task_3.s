@@ -74,4 +74,6 @@ next:
 
 	movl %ebp, %esp		#Epilog
 	popl %ebp
+
+	movl 	$0,	%eax #return 0
 	ret
