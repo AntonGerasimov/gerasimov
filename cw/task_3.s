@@ -1,3 +1,4 @@
+#Арифметическое действие производится второй цифрой на первую
 .text
 .globl my_sum, my_rasn, my_umn, my_del, my_i, my_d
 my_sum:

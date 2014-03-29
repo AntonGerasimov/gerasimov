@@ -1,8 +1,8 @@
 	.data
 msg_string:
-	.string "Call 1\n"
+	.string "Call_1\n"
 msg_string_2:
-	.string "Call 2\n"
+	.string "Call_2\n"
 	.text
 	.globl main
 my_printf:
@@ -26,12 +26,12 @@ my_printf:
         ret
 
 main:
-	pushl %ebp
+	pushl %ebp	#Prolog
         movl %esp, %ebp
 
 	call my_printf
 	
-        movl %ebp, %esp
+        movl %ebp, %esp	#Epilog
         popl %ebp
 
 	ret
