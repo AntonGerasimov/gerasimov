@@ -1,5 +1,6 @@
 #Программа сначала устанавливает значение всех флагов на 0
 #Затем она присваивает поочередно флагам значение единицы. 0000->1000->1100->1010->1011, печатая соответствующие четверки чисел
+#На вход подается число для умножения, которое требуется для появления флага of. 10 000 000 - correct number.
 	.data
 string:
 	.string "%d"
@@ -117,13 +118,13 @@ main:
 	movl	$-10,	%eax
 	cmpl	$10,	%eax
 	stc
-	call	print_flags	#3*1
+	call	print_flags	#cf=sf=1 zf=of=0
 
 	movl	$1,	%eax
 	addl	%eax,	%ebx
 	imul	%ebx
 	imul	%ebx
-	call 	print_flags	#4*1
+	call 	print_flags	#cf=sf=of=1 zf=0
 	
 	movl 	%ebp, 	%esp  	#Epilog
 	popl 	%ebp
