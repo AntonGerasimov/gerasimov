@@ -8,47 +8,47 @@ format_string_output:
 	.string "%d\n"
 	.text
 	.globl main
-perevod:
-	movl $2, %ebx
-	idiv %ebx
-	pushl %edx
-	movl $0, %edx
-	addl $1, %ecx
-	cmp $0, %eax
-	jne perevod
-	movl $0, %eax
-	jmp next	
+perevod:	#Переводим десятичное число в двоичное путем деления на 2 и запоминания остатка.
+	movl 	$2, 	%ebx
+	idiv 	%ebx
+	pushl 	%edx
+	movl 	$0, 	%edx
+	addl 	$1, 	%ecx
+	cmp 	$0, 	%eax
+	jne 	perevod
+	movl 	$0, 	%eax
+	jmp 	next	
 main:
-	pushl %ebp	#Prolog
-	movl %esp, %ebp
+	pushl 	%ebp	#Prolog
+	movl 	%esp, %ebp
 
 	pushl	$int_label 	#Scan
 	pushl	$format_string_input
 	call	scanf
-	addl $8, %esp
+	addl 	$8, 	%esp
 
-	movl	int_label, %eax	
-	movl $0, %ecx
+	movl	int_label, 	%eax	
+	movl 	$0, 	%ecx
 
-	cmp $0, %eax
-	jne perevod
-	pushl %eax
-	movl $0, %ecx
-	jmp next
+	cmp 	$0, 	%eax
+	jne 	perevod
+	pushl 	%eax
+	movl 	$0, 	%ecx
+	jmp 	next
 next:
-	popl %ebx #записываем текущую цифру для числа в ebx
-	movl $10, %edx 
-	imul %edx #eax=eax*10 
-	addl %ebx, %eax #eax = eax+ebx
-	loop next
+	popl 	%ebx 	#записываем текущую цифру для числа в ebx
+	movl 	$10, 	%edx 
+	imul 	%edx 	#eax=eax*10 
+	addl 	%ebx, 	%eax #eax = eax+ebx
+	loop 	next
 	
-	pushl	%eax #Print
+	pushl	%eax 	#Print
 	pushl	$format_string_output
 	call	printf
-	addl	$8, %esp
+	addl	$8, 	%esp
 
-	movl %ebp, %esp		#Epilog
-	popl %ebp
+	movl 	%ebp, 	%esp	#Epilog
+	popl 	%ebp
 	
-	movl $0, %eax #return 0
+	movl 	$0, 	%eax #return 0
 	ret
