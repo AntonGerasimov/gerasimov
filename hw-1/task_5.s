@@ -48,12 +48,12 @@ print:
 finish:
 	loop	shift
 
-	pushl	$out
+	pushl	$out	#print "\n"
 	call	printf
-	addl	$4, %esp
+	addl	$4, 	%esp
 
 	movl	%ebp,	%esp	#Epilog
 	popl	%ebp
 
 	movl	$0,	%eax	#return 0
-ret
+	ret

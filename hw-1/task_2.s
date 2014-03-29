@@ -1,3 +1,4 @@
+#Программа принимает на вход отрицательное десятичное число. На выход подается его двоичная запись в дополнительном коде.
 	.data
 in:
 	.string "%d"
@@ -17,8 +18,8 @@ main:
 	addl	$8,	%esp
 
 	movl	int,	%eax	#our number is in eax now
-	movl	$32,	%ecx #set counter to 32
-	movl	$0,	%edx #edx становится равно 1, когда в числе появляется превая единица. Так отбрасываются незначащие нули.
+	movl	$32,	%ecx 	#set counter to 32
+	movl	$0,	%edx 	#edx становится равно 1, когда в числе появляется первая единица. Так отбрасываются незначащие нули.
 
 shift:
 	shll	$1,	%eax
@@ -47,10 +48,10 @@ finish:
 
 	pushl	$out
 	call	printf
-	addl	$4, %esp
+	addl	$4, 	%esp
 
 	movl	%ebp,	%esp	#Epilog
 	popl	%ebp
 
 	movl	$0,	%eax	#return 0
-ret
+	ret

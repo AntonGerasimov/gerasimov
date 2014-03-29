@@ -9,20 +9,19 @@ out:
 	.text
 	.globl	pointer, main
 pointer:
-	pushl	%ebp
-	movl	%esp, %ebp
+	pushl	%ebp	#Prolog
+	movl	%esp, 	%ebp
 
-	movl	$a, %eax
+	movl	$a, 	%eax 	#return address of a
 	
-	movl %ebp, %esp
+	movl 	%ebp, 	%esp	#Epilog
 	popl	%ebp
-	
 	ret
 main:
 	pushl	%ebp
-	movl	%esp, %ebp
+	movl	%esp, 	%ebp
 
-	call pointer
+	call 	pointer	
 
 	cmpl	$a,	%eax
 	jne 	set_1
@@ -31,13 +30,13 @@ main:
 set_1:
 	movl	$1,	%eax
 print:	
-	pushl %eax
-	pushl $out
-	call printf
-	addl $8, %esp
+	pushl 	%eax	#Print
+	pushl 	$out
+	call 	printf
+	addl 	$8, 	%esp
 
-	movl	$0, %eax
+	movl	$0, 	%eax	#return 0
 	
-	movl %ebp, %esp
+	movl 	%ebp, 	%esp	#Epilog
 	popl	%ebp
 	ret

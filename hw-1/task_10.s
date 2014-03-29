@@ -20,20 +20,20 @@ out_float:
 	.globl	main
 
 main:
-	pushl	%ebp #Prolog
-	movl	%esp, %ebp
+	pushl	%ebp 	#Prolog
+	movl	%esp, 	%ebp
 
-	pushl	$a #Scan int
+	pushl	$a 	#Scan int
 	pushl	$in_int
 	call	scanf
 	addl 	$8,	%esp
 
-	pushl	$c #Scan char
+	pushl	$c 	#Scan char
 	pushl	$in_char
 	call	scanf
 	addl	$8,	%esp
 
-	pushl	$b #Scan float
+	pushl	$b 	#Scan float
 	pushl	$in_float
 	call	scanf
 	addl	$8,	%esp

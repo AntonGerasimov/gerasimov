@@ -67,19 +67,9 @@ main:
 	call 	printf
 	addl	$8,	%esp
 
-
 	movl	%ebp,	%esp #Epilog
 	popl	%ebp
 
 	movl	$0,	%eax #return 0
 
 	ret
-
-
-
-
-
-
-
-
-

@@ -21,17 +21,17 @@ main:
 
 
 	pushl %ebx
-	movl 	$4, %eax
+	movl 	$4, 	%eax
 	addl 	$double,%eax #first part of our number is in eax now
-	movl (%eax), %ebx
-	movl %ebx, %eax
-	popl %ebx
+	movl 	(%eax),	%ebx
+	movl 	%ebx, 	%eax
+	popl 	%ebx
 	movl	$64,	%ecx 	#set counter to 64
 
 shift:
 	cmpl 	$32,	%ecx
-	jne	go_next
-	movl 	$double, %eax
+	jne	go_next	#if ecx=32, go to next part of number
+	movl 	$double,%eax
 	pushl	%ebx
 	movl	(%eax), %ebx
 	movl	%ebx,	%eax #second part of our number is in eax now
@@ -59,10 +59,10 @@ print:
 
 	pushl	$out
 	call	printf
-	addl	$4, %esp
+	addl	$4, 	%esp
 
 	movl	%ebp,	%esp	#Epilog
 	popl	%ebp
 
 	movl	$0,	%eax	#return 0
-ret
+	ret

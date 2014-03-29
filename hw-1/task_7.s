@@ -19,27 +19,26 @@ main:
 	call	scanf
 	addl	$8,	%esp
 
-
 	pushl %ebx
-	movl 	$6, %eax
-	addl 	$long_double,%eax #first part of our number is in eax now
-	movl (%eax), %ebx
-	movl %ebx, %eax
-	popl %ebx
+	movl 	$6, 	%eax
+	addl 	$long_double,	%eax 	#first part of our number is in eax now
+	movl 	(%eax), %ebx
+	movl 	%ebx, 	%eax
+	popl 	%ebx
 	movl	$80,	%ecx 	#set counter to 80
 
 shift:
 	cmpl 	$48,	%ecx
-	jne	go_next
+	jne	go_next	#if ecx=48, go to second part
 	movl 	$2,	%eax
 	addl 	$long_double,	%eax
 	movl	(%eax), %ebx
 	movl	%ebx,	%eax #second part of our number is in eax now
 	popl	%ebx
 go_next:
-	cmpl	$16,	%ecx
+	cmpl	$16,	%ecx	#if ecx = 16, go to third part
 	jne 	go_next_again
-	movl 	$long_double, %eax
+	movl 	$long_double, 	%eax
 	pushl	%ebx
 	movl	(%eax), %ebx
 	movl	%ebx,	%eax #third part of our number is in eax now
@@ -67,10 +66,10 @@ print:
 
 	pushl	$out
 	call	printf
-	addl	$4, %esp
+	addl	$4, 	%esp
 
 	movl	%ebp,	%esp	#Epilog
 	popl	%ebp
 
 	movl	$0,	%eax	#return 0
-ret
+	ret

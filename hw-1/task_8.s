@@ -32,13 +32,13 @@ main:
 del:
 	movl	int,	%eax
 	movl	$10,	%ebx
-	idiv	%ebx
+	idiv	%ebx	#Записываем последнюю цифру числа, а само число приравниваем к целой части от деления.
 
 	pushl 	%edx
 	movl	$0,	%edx
 	movl 	%eax,	int
 
-	movl 	count, 	%ebx
+	movl 	count, 	%ebx	#count++
 	addl	$1,	%ebx
 	movl 	%ebx,	count
 
@@ -78,15 +78,14 @@ print:
 	loop	bcd
 	
 
-	pushl 	$space
+	pushl 	$space	#print " "
 	call 	printf
 	addl 	$4, 	%esp
-
 
 	popl 	%ecx
 	loop	perevod
 
-	pushl	$out
+	pushl	$out	#print "\n"
 	call 	printf
 	addl	$4,	%esp
 

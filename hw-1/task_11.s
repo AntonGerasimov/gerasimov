@@ -13,29 +13,28 @@ out_int:
 	.text
 	.globl main
 main:
-	pushl	%ebp #Prolog
+	pushl	%ebp 	#Prolog
 	movl	%esp,	%ebp
 
-	pushl 	$int #Scan number
+	pushl 	$int 	#Scan number
 	pushl	$in_int
 	call	scanf
 	addl 	$8,	%esp
 
-	movl	$space,	%ebx #mov address of space to ebx
-	movl	int,	%eax #mov our scanned value to space
+	movl	$space,	%ebx 	#move address of space to ebx
+	movl	int,	%eax 	#move our scanned value to space
 	movl	%eax,	space
 
 	movl	$23,	%eax 	#Непосредственная адресация
 	movl	(address),	%eax	#Прямая адресация (обычная)	
 	movl	(%ebx),	%eax	#Косвенная адресация
 
-	pushl	%eax #напечатать значение, которое находится по адресу, лежащему в ebx
+	pushl	%eax 	#напечатать значение, которое находится по адресу, лежащему в ebx
 	pushl	$out_int
 	call	printf
 	addl	$8,	%esp
 
-	movl	%ebp,	%esp #Epilog
+	movl	%ebp,	%esp 	#Epilog
 	popl	%ebp
-	movl	$0,	%eax #return 0
+	movl	$0,	%eax 	#return 0
 	ret
-	

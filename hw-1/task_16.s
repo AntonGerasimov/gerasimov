@@ -19,65 +19,64 @@ power:
 	.text
 	.globl main
 main:
-	pushl %ebp #Prolog
-	movl %esp, %ebp
+	pushl 	%ebp 	#Prolog
+	movl 	%esp, 	%ebp
 
-	pushl $int_space_a #Scan
-	pushl $in_string
-	call scanf
-	addl $8, %esp
+	pushl 	$int_space_a 	#Scan
+	pushl 	$in_string
+	call 	scanf
+	addl 	$8, 	%esp
 
-	pushl %eax
+	pushl 	%eax
 
-	movl int_space_a, %eax
+	movl 	int_space_a, 	%eax
 	
-	cmpl $23, %eax
-	je right
+	cmpl 	$23, 	%eax
+	je 	right
 
-	cmpl $0, %eax
-	je zero
+	cmpl 	$0, 	%eax
+	je 	zero
 
-	cmpl $666, %eax
-	je diablo
+	cmpl 	$666, 	%eax
+	je 	diablo
 
-	cmpl $1024, %eax
-	je power_string
+	cmpl 	$1024, 	%eax
+	je 	power_string
 
-	pushl $no_string
-	call printf
-	addl $4, %esp
+	pushl 	$no_string
+	call 	printf
+	addl 	$4, 	%esp
 	
-	jmp next
+	jmp 	next
 right:
-	pushl $yes_string
-	call printf
-	addl $4, %esp
+	pushl 	$yes_string
+	call 	printf
+	addl 	$4, 	%esp
 
-	jmp next
+	jmp 	next
 zero:
-	pushl $zero_string
-	call printf
-	addl $4, %esp	
-	jmp next
+	pushl 	$zero_string
+	call 	printf
+	addl 	$4, 	%esp	
+	jmp 	next
 
 diablo:
-	pushl $diablo_string
-	call printf
-	addl $4, %esp
-	jmp next
+	pushl 	$diablo_string
+	call 	printf
+	addl 	$4, 	%esp
+	jmp 	next
 
 power_string:
-	pushl $power
-	call printf
-	addl $4, %esp
-	jmp next
+	pushl 	$power
+	call 	printf
+	addl 	$4, 	%esp
+	jmp 	next
 
-next: #Continue program	
-	popl %eax
+next: 	#Continue program	
+	popl 	%eax
 
-	movl %ebp, %esp #Epilog
-	popl %ebp
+	movl 	%ebp,	%esp 	#Epilog
+	popl 	%ebp
 	
-	movl $0, %eax #return 0
+	movl 	$0, 	%eax 	#return 0
 	ret
-

@@ -28,7 +28,6 @@ main:
 	movl 	count, 	%eax #Set count to zero
 	movl 	$0, 	%eax
 	movl 	%eax, 	count
-
 del:
 	movl	int,	%eax
 	movl	$10,	%ebx
@@ -77,16 +76,14 @@ print:
 
 	loop	bcd
 	
-
-	pushl 	$space
+	pushl 	$space	#print " "
 	call 	printf
 	addl 	$4, 	%esp
-
 
 	popl 	%ecx
 	loop	perevod
 
-	pushl	$out
+	pushl	$out	#print "\n"
 	call 	printf
 	addl	$4,	%esp
 

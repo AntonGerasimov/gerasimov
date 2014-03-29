@@ -14,39 +14,39 @@ int_space_b:
 	.text
 	.globl main
 main:
-	pushl %ebp #Prolog
-	movl %esp, %ebp
+	pushl 	%ebp 	#Prolog
+	movl 	%esp, 	%ebp
 
-	pushl $int_space_b #Scan
-	pushl $int_space_a
-	pushl $int_string
-	call scanf
-	addl $8, %esp
+	pushl 	$int_space_b 	#Scan
+	pushl 	$int_space_a
+	pushl 	$int_string
+	call 	scanf
+	addl 	$8, 	%esp
 
-	pushl %ebx #Save ebx and eax
-	pushl %eax
+	pushl 	%ebx 	#Save ebx and eax
+	pushl 	%eax
 
-	movl int_space_a, %eax
-	movl int_space_b, %ebx
+	movl 	int_space_a, 	%eax
+	movl 	int_space_b, 	%ebx
 	
-	cmp %ebx, %eax
-	jge more #If the first is more then the second or equal go to more
-	pushl $no_string #Print if second is more then the first
-	call printf
-	addl $4, %esp
-	jmp next
+	cmp 	%ebx, 	%eax
+	jge 	more 	#If the first is more then the second or equal go to more
+	pushl 	$no_string 	#Print if second is more then the first
+	call 	printf
+	addl 	$4, 	%esp
+	jmp 	next
 
 more:
-	pushl $yes_string #Print
-	call printf
-	addl $4, %esp
+	pushl 	$yes_string 	#Print
+	call 	printf
+	addl 	$4, 	%esp
 
-next: #Continue program	
-	popl %eax
-	popl %ebx
+next: 	#Continue program	
+	popl 	%eax
+	popl 	%ebx
 
-	movl %ebp, %esp #Epilog
-	popl %ebp
+	movl 	%ebp, 	%esp 	#Epilog
+	popl 	%ebp
 
-	movl $0, %eax #return 0
+	movl 	$0, 	%eax 	#return 0
 	ret
