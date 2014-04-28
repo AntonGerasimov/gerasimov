@@ -6,7 +6,7 @@ double f(double x){
 	return 0;
 	}
 
-void func(double *x, double *y, double *z, int n){
+void func(double *x, double *y, int n){
 	float a, b;
 //	double z[16000];
 	double last_y = y[0];
@@ -16,18 +16,19 @@ void func(double *x, double *y, double *z, int n){
 	float h = 2.0 / (n-1);//т.к. (-1;1)
 	float t = k * h / cx;
         for (i=0;i<n;i++){
-                a = (y[i] - last_y) / h;
+                a = (y[i] - y[i-1]) / h;
                 b = y[i] - a * x[i];
-                last_y = y[i];
-		y[i] = a * (x[i] - cx * t) + b;}
-        a = (y[0] - last_y) / h;
-        y[0] = a * (h - cx * t) + last_y;
+                z[i] = a * (x[i] - cx * t) + b;}
+        a = (y[0] - y[n-1]) / h;
+        b = y[0] - a * x[0];
+        z[0] = a * (h - cx * t) + b;
 
 
-//        for (i=0; i<n; i++){
-//              printf("%f ",z[i]);}
-//        printf("\n");
-//      DM_plot_1d_etalon(x, y, z, n, "Test 1", 1);
+        for (i=0; i<n; i++){
+                printf("%f ",z[i]);}
+        printf("\n");
+        DM_plot_1d_etalon(x, z, y, n, "Test 1", 0);
+        DM_plot_1d_etalon(x, z, y, n, "Test 1", 1);
 
 	}
 
@@ -39,16 +40,15 @@ int main(){
         float h = 2.0 / (n-1);//т.к. (-1;1)
         float t = k * h / cx;
 
-	float m = n / (k * cx); //1 полный оборот
+	float m = 2.0 / (t * cx); //1 полный оборот
 	int i;
 	double x[16000]; //координаты
 	double y[16000];
-       	double z[16000];
+                       
 
 	for (i=0; i<n; i++){
 		x[i] = -1 + (i * h);
 		y[i] = f(x[i]);
-		z[i] = y[i];
 	}
 	y[n] = y[0];
 //	for (i=0;i<n;i++){
@@ -56,8 +56,6 @@ int main(){
 //	printf("\n");
 
 	for (i=1; i<=m; i++){
-	func(x, y, z, n);
+	func(x, y, n);
 	}
-        DM_plot_1d_etalon(x, y, z, n, "Test 1", 0);
-        DM_plot_1d_etalon(x, y, z, n, "Test 1", 1);
 	return 0;}
