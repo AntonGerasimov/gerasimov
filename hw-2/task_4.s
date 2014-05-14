@@ -53,7 +53,7 @@ main:
         call 	printf
         addl    $12,    %esp
 
-	movl	$1,	%eax	#return 0
+	movl	$0,	%eax	#return 0
 	movl	%ebp,	%esp	#Epilog
 	popl	%ebp
 	ret
