@@ -94,8 +94,7 @@ main:
 	call	scanf
 	addl	$8,	%esp
 	
-	cmpl	$0,	a	
-	movl	a,	%eax	
+	cmpl	$0,	a		
 	outf
 
 	movl 	%ebp, 	%esp  	#Epilog
