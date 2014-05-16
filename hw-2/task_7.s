@@ -65,6 +65,10 @@ svoistvo:
 	je 	proverka
 	jmp	svoistvo
 proverka:
+	cmpb	$65,	%al
+	jl	pravilo_2
+	cmpb	$90,	%al
+	jle	pravilo_1
 	cmpb	$97,	%al
 	jl	pravilo_2
 	cmpb	$122,	%al
