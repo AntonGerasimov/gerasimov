@@ -1,99 +1,150 @@
+//3 4 4
+//На вход подается трехсимвольный текст
 	.data
-a:
-	.space 	32
-
-b:
-	.space 	32
-
+symbol:
+	.space 1
 in:
 	.string	"%s"
-
 out:
 	.string	"%s\n"
+pr_1:
+	.string "Правило 1: Заменить каждую строчную латинскую букву соответствующей заглавной буквой."
+pr_2:
+	.string "Правило 2: Удалить из текста все повторные вхождения его первого символа."
 
 	.set str_in_length,	3
 str_in:
 	.space str_in_length
+rule:	
+	.space 4
+//rule = 1 if pr_1,	else rule=2
+enter:
+	.string "\n"
+out_d:
+	.string "%d\n"
 str_out:
-	.space	str_in_length
-error_string:
-	.string	"error\n"
-n:
-	.string	"\n"
+	.space str_in_length
 	.text
-svoistvo:
-	cmpl	$str_in_length,	%ecx
-	je 	proverka_zagl
-	cmpl	$1,	%ecx
-	je 	proverka_str
-	jmp	next
-proverka_zagl:
-	jmp 	next
-proverka_str:
-	cmpb	$96,	%al
-	jl	error
-	cmpb	$122,	%al
-	jg 	error	
-	jmp	next
-
-pravilo_1:
-//Строчные буквы имеют код от 97 до 122
-//Сравниваем %al и 97, если меньше, то save
-        cmpb    $97,    %al
-        jl      save
-//Сравниваем %al и 122, если больше, то save
-        cmpb    $122,   %al
-        jg      save
-add:
-        addb    $-32,   %al
-	jmp	save
-
 	.globl	main
 main:
 	pushl	%ebp	#Prolog
 	movl	%esp,	%ebp
 
-	pushl	$str_in
+	pushl	$str_in	#Scan
 	pushl	$in
 	call	scanf
 	addl	$8,	%esp	
 
+	pushl	$str_in
+	pushl	$out
+	call	printf
+	addl	$8,	%esp
+
+	pushl	$enter
+	call	printf
+	addl	$4,	%esp
+
+	movl	$str_in,	%esi
+	movl	$str_out,	%edi
+
+	lodsb
+	cmpb	$65,	%al
+	jl	pravilo_2
+	cmpb	$90,	%al
+	jle	next_sv
+	cmpb	$97,	%al
+	jl	pravilo_2
+	cmpb	$122,	%al
+	jg	pravilo_2
+next_sv:
+	movl	$1,	%ecx
+svoistvo:
+	lodsb
+	addl	$1,	%ecx
+	cmpl	$str_in_length,	%ecx
+	je 	proverka
+	jmp	svoistvo
+proverka:
+	cmpb	$97,	%al
+	jl	pravilo_2
+	cmpb	$122,	%al
+	jg	pravilo_2
+
+	jmp	pravilo_1
+	
+pravilo_1:
+	movl	$1,	rule
+	movl	$str_in,	%esi
+	movl	$str_out,	%edi
+	movl	$str_in_length,	%ecx
+1:
+	lodsb
+	cmpb	$65,	%al
+	jl	next
+	cmpb	$90,	%al
+	jle	next
+	cmpb	$97,	%al
+	jge	change
+	cmpb	$122,	%al
+	jle	change
+	jmp 	next
+change:
+	subb	$32,	%al
+next:
+	stosb
+	loop	1b
+jmp	print
+
+
+pravilo_2:
+	movl	$2,	rule
 	movl	$str_in,	%esi
 	movl	$str_out,	%edi
 
 	movl	$str_in_length,	%ecx
-1:
+	
 	lodsb
-	
-	call	pravilo_1
-	
-save:
+	movb	%al,	symbol
 	stosb
-	loop	1b
+
+	subl	$1,	%ecx
+delete:
+	lodsb
+	cmpb	symbol,	%al
+	je	dont_write
+	stosb
+dont_write:
+	loop	delete
 
 
-	pushl	$str_in
+print:
+
+	cmpl	$2,	rule
+	je 	print_pravilo_2
+print_pravilo_1:
+	pushl	$pr_1
 	pushl	$out
-	call 	printf
+	call	printf
 	addl	$8,	%esp
-
-	pushl	$n
+	jmp	next_print
+print_pravilo_2:
+	pushl	$pr_2
+	pushl	$out
+	call	printf
+	addl	$8,	%esp
+	
+next_print:
+	pushl	$enter
 	call	printf
 	addl	$4,	%esp
 
-	pushl	$str_out
+	pushl	$str_out	#Print
 	pushl	$out
 	call	printf
 	addl	$8,	%esp
 
-	jmp	epilog
-//error:
-//	pushl	$error_string
-//	call	printf
-//	addl	$4,	%esp
-epilog:
 	movl	%ebp,	%esp	#Epilog
 	popl	%ebp
 
-	movl	$0,	%eax
+	movl	$0,	%eax	#return 0
 	ret
