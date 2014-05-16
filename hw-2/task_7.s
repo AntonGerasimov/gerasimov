@@ -24,7 +24,66 @@ out_d:
 	.string "%d\n"
 str_out:
 	.space str_in_length
-	.text
+
+	.text	
+rule_1:
+	pushl	%ebp	#Prolog
+	movl	%esp,	%ebp
+
+	movl    $1,     rule
+        movl    $str_in,        %esi
+        movl    $str_out,       %edi
+        movl    $str_in_length, %ecx
+1:
+        lodsb
+        cmpb    $65,    %al
+        jl      next
+        cmpb    $90,    %al
+        jle     next
+        cmpb    $97,    %al
+        jge     change
+        cmpb    $122,   %al
+        jle     change
+        jmp     next
+change:
+        subb    $32,    %al
+next:
+        stosb
+        loop    1b
+
+	movl	$0,	%eax	#return 0
+	movl	%ebp,	%esp	#Epilog
+	popl	%ebp
+
+	ret	
+
+rule_2:
+	pushl	%ebp	#Prolog
+	movl	%esp,	%ebp
+
+	movl    $2,     rule
+        movl    $str_in,        %esi
+        movl    $str_out,       %edi
+
+        movl    $str_in_length, %ecx
+
+        lodsb
+        movb    %al,    symbol
+        stosb
+
+        subl    $1,     %ecx
+delete:
+        lodsb
+        cmpb    symbol, %al
+        je      dont_write
+        stosb
+dont_write:
+        loop    delete
+
+	movl	$0,	%eax	#return 0
+	movl	%ebp,	%esp	#Epilog
+	popl	%ebp
+	ret
 	.globl	main
 main:
 	pushl	%ebp	#Prolog
@@ -77,52 +136,13 @@ proverka:
 	jmp	pravilo_1
 	
 pravilo_1:
-	movl	$1,	rule
-	movl	$str_in,	%esi
-	movl	$str_out,	%edi
-	movl	$str_in_length,	%ecx
-1:
-	lodsb
-	cmpb	$65,	%al
-	jl	next
-	cmpb	$90,	%al
-	jle	next
-	cmpb	$97,	%al
-	jge	change
-	cmpb	$122,	%al
-	jle	change
-	jmp 	next
-change:
-	subb	$32,	%al
-next:
-	stosb
-	loop	1b
+call	rule_1
 jmp	print
 
-
 pravilo_2:
-	movl	$2,	rule
-	movl	$str_in,	%esi
-	movl	$str_out,	%edi
-
-	movl	$str_in_length,	%ecx
-	
-	lodsb
-	movb	%al,	symbol
-	stosb
-
-	subl	$1,	%ecx
-delete:
-	lodsb
-	cmpb	symbol,	%al
-	je	dont_write
-	stosb
-dont_write:
-	loop	delete
-
+	call	rule_2
 
 print:
-
 	cmpl	$2,	rule
 	je 	print_pravilo_2
 print_pravilo_1:
