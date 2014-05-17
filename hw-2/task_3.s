@@ -22,7 +22,6 @@ main:
 
 	movl 	$0,	%eax 	#Обнуляем счетчик i
 	movl 	%eax, 	count
-
 read:
 	movl	count, 	%eax
 	sall	$3, 	%eax
@@ -65,7 +64,6 @@ next_2:
 	fstpl	(%esp)	
 	popl	%eax
 	movl	%eax,	summ
-
 	pushl	summ
 	pushl	$out
 	call	printf
