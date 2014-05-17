@@ -1,4 +1,4 @@
-//Программа принимает на вход две строки. Первая содержит заглавные латинские буквы. Вторая - строчные. Если обе строки - одинаковые слова, содержащие букву "a", то программа выводит YES, иначе - NO.
+//Программа принимает на вход две строки. Первая содержит заглавные латинские буквы. Вторая - строчные. Если обе строки - одинаковые слова, содержащие хотя бы одну букву "a", то программа выводит YES, иначе - NO.
 	.data
 a:
 	.space 	32
@@ -11,13 +11,12 @@ in:
 
 out:
 	.string	"%s\n"
+
 	.set str_in_length,	3
 str_in:
 	.space str_in_length
 str_in_2:
 	.space str_in_length
-
-
 str_out:
 	.space	str_in_length
 yes_string:
@@ -30,12 +29,12 @@ main:
 	pushl	%ebp	#Prolog
 	movl	%esp,	%ebp
 
-	pushl	$str_in
+	pushl	$str_in	#Scan first string
 	pushl	$in
 	call	scanf
 	addl	$8,	%esp
 
-	pushl	$str_in_2
+	pushl	$str_in_2	#Scan second string
 	pushl	$in
 	call	scanf
 	addl	$8,	%esp	
@@ -69,7 +68,7 @@ main:
 no_str:
 	pushl	$no_string
 out_place:
-	pushl	$out
+	pushl	$out	#Print
 	call	printf
 	addl	$8,	%esp
 	
@@ -77,5 +76,5 @@ out_place:
 	movl	%ebp,	%esp	#Epilog
 	popl	%ebp
 
-	movl	$0,	%eax
+	movl	$0,	%eax	#return 0
 	ret
