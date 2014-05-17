@@ -89,7 +89,7 @@ main:
 	pushl 	%ebp 	#Prolog
 	movl 	%esp, 	%ebp
 
-	pushl	$a
+	pushl	$a	#Scan
 	pushl	$int
 	call	scanf
 	addl	$8,	%esp
