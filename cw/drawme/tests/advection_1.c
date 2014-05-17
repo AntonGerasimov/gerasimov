@@ -5,8 +5,7 @@ double f(double x){
 		return 1;
 	return 0;
 	}
-
-void func(double *x, double *y, double *z, int n){
+void func(double *x, double *y, int n){
 	float a, b;
 	double last_y = y[0];
 	int i;
@@ -21,15 +20,11 @@ void func(double *x, double *y, double *z, int n){
 		y[i] = a * (x[i] - cx * t) + b;}
         a = (y[0] - last_y) / h;
         y[0] = a * (h - cx * t) + last_y;
-
-
 //      for (i=0; i<n; i++){
 //      	printf("%f ",z[i]);}
 //      	printf("\n");
 //      DM_plot_1d_etalon(x, y, z, n, "Test 1", 1);
-
 	}
-
 int main(){
 	int n;
 	scanf("%d", &n);
@@ -55,8 +50,17 @@ int main(){
 //	printf("\n");
 
 	for (i=1; i<=m; i++){
-	func(x, y, z, n);
+	func(x, y, n);
 	}
         DM_plot_1d_etalon(x, y, z, n, "Test 1", 0);
         DM_plot_1d_etalon(x, y, z, n, "Test 1", 1);
+
+	float e; //ошибка
+	e = 0;
+	for (i=0; i<n;i++){
+		if (y[i]-z[i] > e)
+			e = y[i] - z[i];
+		if (z[i] - y[i] > e)
+			e = y[i] - z[i];}
+	printf("%lf\n", e);
 	return 0;}
